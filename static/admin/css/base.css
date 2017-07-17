@@ -1,0 +1,92 @@
+.h{
+    display: none;
+}
+form thead tr th label a:hover{
+    cursor:pointer;
+}
+.modal-dialog{
+    margin-top: 23%;
+}
+.count-list{
+    padding-right: 20px !important;
+}
+.width-percent-25{
+    width: 25% !important;
+}
+.width-percent-50{
+    width: 50% !important;
+}
+.submit-button{
+    display: inline-block;
+    height: 22px;
+    width: 22px;
+    line-height: 22px;
+    text-align: center;
+    padding: 0;
+    background-color: #65bcda;
+    color: #FFF;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: default;
+    margin-left: 4px;
+    border-radius: 100%;
+    border-color: #FFF;
+    border: 2px solid #FFF;
+    -webkit-box-shadow: 0 1px 0 1px rgba(0,0,0,.2);
+    box-shadow: 0 1px 0 1px rgba(0,0,0,.2);
+    cursor: pointer;
+}    
+/*** gritter start ***/
+.gritter-center{
+    position: fixed !important;
+}
+.gritter-item {
+    display: block;
+    background: url(../images/gritter.png) no-repeat left -40px;
+    color: #eee;
+    padding: 2px 11px 8px 11px;
+    font-size: 11px;
+    font-family: verdana
+}
+/*** gritter end ***/
+/*** pagination start ***/
+/*** gallery start ***/
+.widget-main .ace-thumbnails>li{
+    margin: 8px 0 0 0;
+    border: 0;
+}
+#cboxClose{
+    top: 0;
+}
+/*** gallery end ***/
+div.page {
+    padding: 3px;
+    margin: 10px;
+}
+div.page a {
+    padding: 3px 7px;
+    border: #ddd 1px solid;
+    color: #417eb7;
+    margin-right: 2px;
+    text-decoration: none;
+}
+div.page a:hover {
+    border: #2b66a5 1px solid;
+    color: #000;
+    background-color: #eee;
+}
+div.page span.current {
+    border: navy 1px solid;
+    padding: 3px 7px;
+    font-weight: bold;
+    color: #fff;
+    margin-right: 2px;
+    background-color: #417eb7;
+}
+div.page span.disabled {
+    padding: 3px 7px;
+    border: #929292 1px solid;
+    color: #929292;
+    margin-right: 2px;
+}
+/*** pagination end ***/
