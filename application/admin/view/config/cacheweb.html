@@ -1,0 +1,86 @@
+{extend name="public:base" /}
+{block name="page-content"}
+	<div class="row" style="margin: 0 auto">
+		<div class="col-xs-12">
+			<div class="widget-box transparent">
+				<div class="widget-header widget-header-flat">
+					<h4 class="widget-title lighter">
+						<i class="ace-icon fa fa-star orange"></i>
+						更新缓存 Update Cache
+					</h4>
+					<div class="widget-toolbar">
+						<a href="#" data-action="collapse">
+							<i class="ace-icon fa fa-chevron-up"></i>
+						</a>
+					</div>
+					<h4 class="widget-title lighter pull-right" style="margin-right:20px;">
+						<a href="javascript:history.back()" onClink>
+							<i class="ace-icon glyphicon glyphicon-list"></i>
+							返回配置列表
+						</a>
+					</h4>
+				</div>
+				<div class="widget-body">
+					<div class="widget-main">
+						<form class="form-horizontal" id="sample-form" action="" method="post" enctype="multipart/form-data">
+							<div class="form-group">
+								<label class="col-xs-12 col-sm-2 control-label no-padding-right">请选择：</label>
+								<div class="checkbox">
+									<label>
+										<input id="cache" name="cache" type="checkbox" class="ace" value="runtime">
+										<span class="lbl"> 缓存</span>
+									</label>
+								</div>
+								<div class="help-block col-xs-12 col-sm-3 h"> 
+									Warning tip help! 
+								</div>
+							</div>
+							<!-- submit -->
+							<div class="col-xs-12 col-sm-1 col-sm-offset-2 no-padding-left">
+								<button class="btn btn-info submit" type="submit">
+									<i class="ace-icon fa fa-check bigger-110"></i>
+									更新
+								</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div><!-- /.col -->
+	</div><!-- /.row -->
+{/block}
+{block name="script"}
+	<script>
+		$('#sample-form').on('submit', function() {
+        	var cache = $('#cache').is(':checked');
+        	if(!cache){
+        		layer.tips('请选择择要更新的缓存！', '.submit');
+        		return false;
+        	}
+        	//return false;
+	        $(this).ajaxSubmit({
+	            type: 'post', // 提交方式 get/post
+	            url: '', // 需要提交的 url
+	            data: {
+	                //'username': username,
+	                //'password': password,
+	                //'verify_code': verify_code
+	            },
+	            success: function(data) { 
+	            	// data 保存提交后返回的数据，一般为 json 数据
+	                // 此处可对 data 作相关处理
+	                if(data.code == 200){
+	                	layer.msg('更新成功！', {icon: 1});
+	                	setTimeout(function(){
+	                            top.window.location.reload();
+	                        },1000);
+	                }else{
+	                	layer.msg('更新失败！', {icon: 2});
+	                }
+	            }
+	        });
+	       	// 阻止表单自动提交事件
+	        return false; 
+	    });
+	</script>
+{/block}

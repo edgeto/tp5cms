@@ -1,0 +1,78 @@
+{extend name="public:base" /}
+{block name="page-content"}
+	<div class="row" style="margin: 0 auto">
+		<div class="col-sm-12">
+			<div class="widget-box transparent">
+				<div class="widget-header widget-header-flat">
+					<h4 class="widget-title lighter">
+						<i class="ace-icon fa fa-star orange"></i>
+						登录日志 Admin Log List
+					</h4>
+					<div class="widget-toolbar pull-right">
+						<a href="#" data-action="collapse">
+							<i class="ace-icon fa fa-chevron-up"></i>
+						</a>
+					</div>
+				</div>
+				<div class="widget-body">
+					<div class="widget-header widget-header-flat text-right">
+						<h4 class="widget-title lighter count-list">
+							系统现有日志<b>{$count}</b>个
+						</h4>
+					</div>
+					<div class="widget-main no-padding">
+						<table class="table table-bordered table-striped table-hover text-center">
+							<thead class="thin-border-bottom text-center">
+								<tr>
+									<th class="text-center">
+										<label class="pos-rel">
+											<input type="checkbox" class="ace" />
+											<span class="lbl"></span>
+										</label>
+									</th>
+									<th class="text-center">
+										<i class="ace-icon fa fa-caret-right blue"></i>ID
+									</th>
+									<th class="text-center">
+										<i class="ace-icon fa fa-caret-right blue"></i>名称
+									</th>
+									<th class="text-center">
+										<i class="ace-icon fa fa-caret-right blue"></i>登陆时间
+									</th>
+									<th class="text-center">
+										<i class="ace-icon fa fa-caret-right blue"></i>登陆IP
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								{volist name="list" id="vo"}
+									<tr>
+										<td>
+											<label class="pos-rel">
+												<input type="checkbox" class="ace" />
+												<span class="lbl"></span>
+											</label>
+										</td>
+										<td>{$vo.id}</td>
+										<td>
+											{notempty name="adminList[$vo['user_id']]"}
+												{$adminList[$vo['user_id']]['username']}
+											{/notempty}
+										</td>
+						                <td>
+						                    {$vo.login_time}
+						                </td>
+						                <td>
+						                    {$vo.login_ip}
+						                </td>
+									</tr>
+							    {/volist}
+							</tbody>
+						</table>
+						{$page}
+					</div><!-- /.widget-main -->
+				</div><!-- /.widget-body -->
+			</div><!-- /.widget-box -->
+		</div><!-- /.col -->
+	</div><!-- /.row -->
+{/block}

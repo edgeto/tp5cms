@@ -1,0 +1,228 @@
+{extend name="public:base" /}
+{block name="page-content"}
+	<div class="row" style="margin: 0 auto">
+		<div class="col-xs-12">
+			<div class="widget-box transparent">
+				<div class="widget-header widget-header-flat">
+					<h4 class="widget-title lighter">
+						<i class="ace-icon fa fa-star orange"></i>
+						编辑广告 Add Ad
+					</h4>
+					<div class="widget-toolbar">
+						<a href="#" data-action="collapse">
+							<i class="ace-icon fa fa-chevron-up"></i>
+						</a>
+					</div>
+					<h4 class="widget-title lighter pull-right" style="margin-right:20px;">
+						<a href="javascript:history.back()" onClink>
+							<i class="ace-icon glyphicon glyphicon-list"></i>
+							返回广告列表
+						</a>
+					</h4>
+				</div>
+				<div class="widget-body">
+					<div class="widget-main">
+						<form class="form-horizontal" id="sample-form" action="" method="post" enctype="multipart/form-data">
+							<input type="hidden" name="id" value="{$data['id']}" />
+							<div class="form-group">
+								<label class="col-xs-12 col-sm-2 control-label no-padding-right">广告位：</label>
+								<div class="col-xs-12 col-sm-5">
+									<select class="form-control" id="site_id" name="site_id">
+										{volist name="adPositionList" id="vo"}
+											{if condition="$data['ad_position_id'] eq $vo['id'] "}
+						                        <option value="{$vo['id']}" selected>{$vo['name']}</option>
+									        {else /}
+									        	<option value="{$vo['id']}">{$vo['name']}</option>
+									        {/if}
+										{/volist}
+									</select>
+								</div>
+								<div class="help-block col-xs-12 col-sm-3 h"> 
+									Warning tip help! 
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="name" class="col-xs-12 col-sm-2 control-label no-padding-right">名称：</label>
+								<div class="col-xs-12 col-sm-5">
+									<span class="block input-icon input-icon-right">
+										<input type="text" id="name" name="name" class="width-100" placeholder="请输入名称" value="{$data['name']}" />
+										<i class="ace-icon fa fa-leaf green"></i>
+									</span>
+								</div>
+								<div class="help-block col-xs-12 col-sm-3 h"> 
+									Warning tip help! 
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="img" class="col-xs-12 col-sm-2 control-label no-padding-right">图片：</label>
+								<div class="col-xs-12 col-sm-5">
+									<input type="file" id="img" name="img" placeholder="请选择图片" />
+								</div>
+								<div class="help-block col-xs-12 col-sm-3 h"> 
+									Warning tip help! 
+								</div>
+							</div>
+							{notempty name="data.img"}
+								<div class="form-group">
+									<label for="img" class="col-xs-12 col-sm-2 control-label no-padding-right">图片显示：</label>
+									<div class="col-xs-12 col-sm-5">
+				                        <a href="{$config.domain.static}{$data['img']}" target="_blank">
+				                            <img src="{$config.domain.static}{$data['img']}" style="width: 150px;height: 150px;">
+				                        </a>
+									</div>
+								</div>
+							{/notempty}
+							<div class="form-group">
+								<label for="url" class="col-xs-12 col-sm-2 control-label no-padding-right">链接：</label>
+								<div class="col-xs-12 col-sm-5">
+									<span class="block input-icon input-icon-right">
+										<input type="text" id="url" name="url" class="width-100" value="{$data['url']}"  placeholder="请输入链接" />
+										<i class="ace-icon fa fa-leaf green"></i>
+									</span>
+								</div>
+								<div class="help-block col-xs-12 col-sm-3 h"> 
+									Warning tip help! 
+								</div>
+							</div>
+							<div class="form-group {if condition=" $ad_position['type'] != 2 "}h{/if}">
+								<label for="ueditor" class="col-xs-12 col-sm-2 control-label no-padding-right">ht ml内容：</label>
+								<div class="col-xs-12 col-sm-5">
+									<!-- 加载编辑器的容器 -->
+					                <script id="ueditor" name="content" type="text/plain">{$data['content']}</script>
+								</div>
+								<div class="help-block col-xs-12 col-sm-3 h"> 
+									Warning tip help! 
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="sort" class="col-xs-12 col-sm-2 control-label no-padding-right">排序：</label>
+								<div class="col-xs-12 col-sm-5">
+									<span class="block input-icon input-icon-right">
+										<input type="text" id="sort" name="sort" class="width-100" value="{$data['sort']}"  placeholder="请输入数字" />
+										<i class="ace-icon fa fa-leaf green"></i>
+									</span>
+								</div>
+								<div class="help-block col-xs-12 col-sm-3 h"> 
+									Warning tip help! 
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="start_time" class="col-xs-12 col-sm-2 control-label no-padding-right">开始时间：</label>
+								<div class="col-xs-12 col-sm-5">
+									<span class="block input-icon input-icon-right">
+										<input type="text" id="start_time" name="start_time" class="width-100" value="" placeholder="开始时间" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" />
+										<i class="ace-icon glyphicon glyphicon-time green"></i>
+									</span>
+								</div>
+								<div class="help-block col-xs-12 col-sm-3 h"> 
+									Warning tip help! 
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="end_time" class="col-xs-12 col-sm-2 control-label no-padding-right">结束时间：</label>
+								<div class="col-xs-12 col-sm-5">
+									<span class="block input-icon input-icon-right">
+										<input type="text" id="end_time" name="end_time" class="width-100" value="" placeholder="结束时间" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" />
+										<i class="ace-icon glyphicon glyphicon-time green"></i>
+									</span>
+								</div>
+								<div class="help-block col-xs-12 col-sm-3 h"> 
+									Warning tip help! 
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="status" class="col-xs-12 col-sm-2 control-label no-padding-right">状态：</label>
+								<div class="col-xs-12 col-sm-5">
+									<select class="form-control" id="status" name="status">
+				                        {if condition="$data['status'] eq 0 "}
+				                        	<option value="0" selected>启用</option>
+				                         	<option value="1">禁用</option>
+								        {else /}
+								            <option value="0">启用</option>
+				                         	<option value="1" selected>禁用</option>
+								        {/if}
+									</select>
+								</div>
+							</div>
+							<!-- submit -->
+							<div class="col-xs-12 col-sm-1 col-sm-offset-2 no-padding-left">
+								<button class="btn btn-info submit" type="submit">
+									<i class="ace-icon fa fa-check bigger-110"></i>
+									Submit
+								</button>
+							</div>
+							<div class="col-xs-12 col-sm-1 col-sm-offset-2">
+								<button class="btn" type="reset">
+									<i class="ace-icon fa fa-undo bigger-110"></i>
+									Reset
+								</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div><!-- /.col -->
+	</div><!-- /.row -->
+{/block}
+{block name="script"}
+	<script type="text/javascript">
+		//百度编辑器跨域问题
+		var _ueditor_url_domain = "{$config.domain.main}";
+	    document.domain = _ueditor_url_domain;
+	</script>
+	<!-- 配置文件 -->
+    <script src="__STATIC__/public/js/ueditor/ueditor.config.js"></script>
+    <!-- 编辑器源码文件 -->
+    <!--<script src="__STATIC__/ueditor/ueditor.all.min.js"></script>-->
+    <script src="http://apps.bdimg.com/libs/ueditor/1.4.3.1/ueditor.all.js"></script>
+    <!-- 实例化编辑器 -->
+    <script type="text/javascript">
+    	// pc
+        var ue = UE.getEditor('ueditor',{initialFrameWidth:800,initialFrameHeight :500});
+    </script>
+	<script>
+		$('#img').ace_file_input({
+			no_file:'No File ...',
+			btn_choose:'Choose',
+			btn_change:'Change',
+			droppable:false,
+			onchange:null,
+			thumbnail:false //| true | large
+			//whitelist:'gif|png|jpg|jpeg'
+			//blacklist:'exe|php'
+			//onchange:''
+			//
+		});
+		$('#sample-form').on('submit', function() {
+        	var name = $('#name').val(),sign = $('#sign').val();
+        	if(!name){
+        		layer.tips('名称不能为空！', '#name');
+        		$('#name').focus();
+        		return false;
+        	}
+        	//return false;
+	        $(this).ajaxSubmit({
+	            type: 'post', // 提交方式 get/post
+	            url: '', // 需要提交的 url
+	            data: {
+	                //'username': username,
+	                //'password': password,
+	                //'verify_code': verify_code
+	            },
+	            success: function(data) { 
+	            	// data 保存提交后返回的数据，一般为 json 数据
+	                // 此处可对 data 作相关处理
+	                if(data.code == 200){
+	                	//location.href = data.data;
+	                	history.back();
+	                }else{
+	                	layer.msg(data.data);
+	                }
+	            }
+	        });
+	       	// 阻止表单自动提交事件
+	        return false; 
+	    });
+	</script>
+	<script src="__STATIC__/public/js/My97DatePicker/WdatePicker.js"></script>
+{/block}

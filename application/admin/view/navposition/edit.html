@@ -1,0 +1,126 @@
+{extend name="public:base" /}
+{block name="page-content"}
+	<div class="row" style="margin: 0 auto">
+		<div class="col-xs-12">
+			<div class="widget-box transparent">
+				<div class="widget-header widget-header-flat">
+					<h4 class="widget-title lighter">
+						<i class="ace-icon fa fa-star orange"></i>
+						编辑导航位 Add NavPosition
+					</h4>
+					<div class="widget-toolbar">
+						<a href="#" data-action="collapse">
+							<i class="ace-icon fa fa-chevron-up"></i>
+						</a>
+					</div>
+					<h4 class="widget-title lighter pull-right" style="margin-right:20px;">
+						<a href="javascript:history.back()" onClink>
+							<i class="ace-icon glyphicon glyphicon-list"></i>
+							返回导航位列表
+						</a>
+					</h4>
+				</div>
+				<div class="widget-body">
+					<div class="widget-main">
+						<form class="form-horizontal" id="sample-form" action="" method="post" enctype="multipart/form-data">
+							<input type="hidden" name="id" value="{$data['id']}" />
+							<div class="form-group">
+								<label class="col-xs-12 col-sm-2 control-label no-padding-right">站点：</label>
+								<div class="col-xs-12 col-sm-5">
+									<select class="form-control" id="site_id" name="site_id">
+										{volist name="siteList" id="vo"}
+											{if condition="$data['site_id'] eq $vo['id'] "}
+						                        <option value="{$vo['id']}" selected>{$vo['name']}</option>
+									        {else /}
+									        	<option value="{$vo['id']}">{$vo['name']}</option>
+									        {/if}
+										{/volist}
+									</select>
+								</div>
+								<div class="help-block col-xs-12 col-sm-3 h"> 
+									Warning tip help! 
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="name" class="col-xs-12 col-sm-2 control-label no-padding-right">名称：</label>
+								<div class="col-xs-12 col-sm-5">
+									<span class="block input-icon input-icon-right">
+										<input type="text" id="name" name="name" class="width-100" placeholder="请输入名称" value="{$data['name']}" />
+										<i class="ace-icon fa fa-leaf green"></i>
+									</span>
+								</div>
+								<div class="help-block col-xs-12 col-sm-3 h"> 
+									Warning tip help! 
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="sign" class="col-xs-12 col-sm-2 control-label no-padding-right">标识：</label>
+								<div class="col-xs-12 col-sm-5">
+									<span class="block input-icon input-icon-right">
+										<input type="text" id="sign" name="sign" class="width-100" placeholder="请输入标识" value="{$data['sign']}"/>
+										<i class="ace-icon fa fa-leaf green"></i>
+									</span>
+								</div>
+								<div class="help-block col-xs-12 col-sm-3 h"> 
+									Warning tip help! 
+								</div>
+							</div>
+							<!-- submit -->
+							<div class="col-xs-12 col-sm-1 col-sm-offset-2 no-padding-left">
+								<button class="btn btn-info submit" type="submit">
+									<i class="ace-icon fa fa-check bigger-110"></i>
+									Submit
+								</button>
+							</div>
+							<div class="col-xs-12 col-sm-1 col-sm-offset-2">
+								<button class="btn" type="reset">
+									<i class="ace-icon fa fa-undo bigger-110"></i>
+									Reset
+								</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div><!-- /.col -->
+	</div><!-- /.row -->
+{/block}
+{block name="script"}
+	<script>
+		$('#sample-form').on('submit', function() {
+        	var name = $('#name').val(),sign = $('#sign').val();
+        	if(!name){
+        		layer.tips('名称不能为空！', '#name');
+        		$('#name').focus();
+        		return false;
+        	}
+        	if(!sign){
+        		layer.tips('标识不能为空！', '#sign');
+        		$('#sign').focus();
+        		return false;
+        	}
+        	//return false;
+	        $(this).ajaxSubmit({
+	            type: 'post', // 提交方式 get/post
+	            url: '', // 需要提交的 url
+	            data: {
+	                //'username': username,
+	                //'password': password,
+	                //'verify_code': verify_code
+	            },
+	            success: function(data) { 
+	            	// data 保存提交后返回的数据，一般为 json 数据
+	                // 此处可对 data 作相关处理
+	                if(data.code == 200){
+	                	//location.href = data.data;
+	                	history.back();
+	                }else{
+	                	layer.msg(data.data);
+	                }
+	            }
+	        });
+	       	// 阻止表单自动提交事件
+	        return false; 
+	    });
+	</script>
+{/block}

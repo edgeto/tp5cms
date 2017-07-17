@@ -1,0 +1,212 @@
+{extend name="public:base" /}
+{block name="page-content"}
+		<div class="row" style="margin: 0 auto">
+			<div class="col-xs-12">
+				<div class="widget-box transparent">
+					<div class="widget-header widget-header-flat">
+						<h4 class="widget-title lighter">
+							<i class="ace-icon fa fa-star orange"></i>
+							编辑资源 Edit Resource
+						</h4>
+						<div class="widget-toolbar">
+							<a href="#" data-action="collapse">
+								<i class="ace-icon fa fa-chevron-up"></i>
+							</a>
+						</div>
+						<h4 class="widget-title lighter pull-right" style="margin-right:20px;">
+							<a href="javascript:history.back()" onClink>
+								<i class="ace-icon glyphicon glyphicon-list"></i>
+								返回资源列表
+							</a>
+						</h4>
+					</div>
+					<div class="widget-body">
+						<div class="widget-main">
+							<form class="form-horizontal" id="sample-form" action="" method="post" enctype="multipart/form-data">
+								<input type="hidden" name="id" value="{$data['id']}" />
+								<div class="form-group">
+									<label class="col-xs-12 col-sm-2 control-label no-padding-right">频道：</label>
+									<div class="col-xs-12 col-sm-5">
+										<select class="form-control" id="channel_id" name="channel_id">
+											{volist name="channel" id="vo"}
+												{if condition="$data['channel_id'] eq $vo['id'] "}
+							                        <option value="{$vo['id']}" selected>{$vo['name']}</option>
+							                    {else /}
+							                        <option value="{$vo['id']}">{$vo['name']}</option>
+							                    {/if}
+											{/volist}
+										</select>
+									</div>
+									<div class="help-block col-xs-12 col-sm-3 h"> 
+										Warning tip help! 
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="name" class="col-xs-12 col-sm-2 control-label no-padding-right">名称：</label>
+									<div class="col-xs-12 col-sm-5">
+										<span class="block input-icon input-icon-right">
+											<input type="text" id="name" name="name" class="width-100" placeholder="请输入名称" value="{$data['name']}" />
+											<i class="ace-icon fa fa-leaf green"></i>
+										</span>
+									</div>
+									<div class="help-block col-xs-12 col-sm-3 h"> 
+										Warning tip help! 
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="nav_name" class="col-xs-12 col-sm-2 control-label no-padding-right">导航名称：</label>
+									<div class="col-xs-12 col-sm-5">
+										<span class="block input-icon input-icon-right">
+											<input type="text" id="nav_name" name="nav_name" class="width-100" value="{$data['nav_name']}" placeholder="请输入导航名称" />
+											<i class="ace-icon fa fa-leaf green"></i>
+										</span>
+									</div>
+									<div class="help-block col-xs-12 col-sm-3 h"> 
+										Warning tip help! 
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="nav_icon" class="col-xs-12 col-sm-2 control-label no-padding-right">导航图标：</label>
+									<div class="col-xs-12 col-sm-5">
+										<span class="block input-icon input-icon-right">
+											<input type="text" id="nav_icon" name="nav_icon" class="width-100" value="{$data['nav_icon']}" placeholder="请输入图标" />
+											<i class="ace-icon fa fa-leaf green"></i>
+										</span>
+									</div>
+									<div class="help-block col-xs-12 col-sm-3"> 
+										<a href="{{ config.domain.static }}/public/html/ace-master/buttons.html" target="_blank">参考</a> 
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="show_nav" class="col-xs-12 col-sm-2 control-label no-padding-right">显示在导航：</label>
+									<div class="col-xs-12 col-sm-5">
+										<select class="form-control" id="show_nav" name="show_nav">
+											{if condition="$data['show_nav'] eq 0 "}
+						                        <option value="0" selected>不显示</option>
+						                        <option value="1">显示</option>
+						                    {else /}
+						                        <option value="0">不显示</option>
+						                        <option value="1" selected>显示</option>
+						                    {/if}
+										</select>
+									</div>
+									<div class="help-block col-xs-12 col-sm-3 h"> 
+										Warning tip help! 
+									</div>
+								</div>
+								<!-- 导航显示排序： -->
+								<div class="form-group">
+									<label for="show_order" class="col-xs-12 col-sm-2 control-label no-padding-right">导航显示排序：</label>
+									<div class="col-xs-12 col-sm-5">
+										<span class="block input-icon input-icon-right">
+											<input type="text" id="show_order" name="show_order" class="width-100" value="{$data['show_order']}" placeholder="请输入数字" />
+											<i class="ace-icon fa fa-leaf green"></i>
+										</span>
+									</div>
+									<div class="help-block col-xs-12 col-sm-3 h"> 
+										Warning tip help! 
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="controller" class="col-xs-12 col-sm-2 control-label no-padding-right">控制器：</label>
+									<div class="col-xs-12 col-sm-5">
+										<span class="block input-icon input-icon-right">
+											<input type="text" id="controller" name="controller" class="width-100" placeholder="请输入控制器" value="{$data['controller']}" />
+											<i class="ace-icon fa fa-leaf green"></i>
+										</span>
+									</div>
+									<div class="help-block col-xs-12 col-sm-3 h"> 
+										Warning tip help! 
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="action" class="col-xs-12 col-sm-2 control-label no-padding-right">操作：</label>
+									<div class="col-xs-12 col-sm-5">
+										<span class="block input-icon input-icon-right">
+											<input type="text" id="action" name="action" class="width-100" placeholder="请输入操作" value="{$data['action']}" />
+											<i class="ace-icon fa fa-leaf green"></i>
+										</span>
+									</div>
+									<div class="help-block col-xs-12 col-sm-3 h"> 
+										Warning tip help! 
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="route" class="col-xs-12 col-sm-2 control-label no-padding-right">路由：</label>
+									<div class="col-xs-12 col-sm-5">
+										<span class="block input-icon input-icon-right">
+											<input type="text" id="route" name="route" class="width-100" placeholder="请输入路由" value="{$data['route']}" />
+											<i class="ace-icon fa fa-leaf green"></i>
+										</span>
+									</div>
+									<div class="help-block col-xs-12 col-sm-3 h"> 
+										Warning tip help! 
+									</div>
+								</div>
+								<!-- submit -->
+								<div class="col-xs-12 col-sm-1 col-sm-offset-2 no-padding-left">
+									<button class="btn btn-info submit" type="submit">
+										<i class="ace-icon fa fa-check bigger-110"></i>
+										Submit
+									</button>
+								</div>
+								<div class="col-xs-12 col-sm-1 col-sm-offset-2">
+									<button class="btn" type="reset">
+										<i class="ace-icon fa fa-undo bigger-110"></i>
+										Reset
+									</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div><!-- /.col -->
+		</div><!-- /.row -->
+	</div>
+{/block}
+{block name="script"}
+	<script>
+		$('#sample-form').on('submit', function() {
+        	var name = $('#name').val(),nav_name = $('#nav_name').val(),controller = $('#controller').val(),action = $('#action').val();
+        	if(!name){
+        		layer.tips('名称不能为空！', '#name');
+        		$('#name').focus();
+        		return false;
+        	}
+        	if(!nav_name){
+        		layer.tips('导航名称不能为空！', '#nav_name');
+        		return false;
+        	}
+        	if(!controller){
+        		layer.tips('控制器不能为空！', '#controller');
+        		return false;
+        	}
+        	if(!action){
+        		layer.tips('动作不能为空！', '#action');
+        		return false;
+        	}
+        	//return false;
+	        $(this).ajaxSubmit({
+	            type: 'post', // 提交方式 get/post
+	            url: '', // 需要提交的 url
+	            data: {
+	                //'username': username,
+	                //'password': password,
+	                //'verify_code': verify_code
+	            },
+	            success: function(data) { 
+	            	// data 保存提交后返回的数据，一般为 json 数据
+	                // 此处可对 data 作相关处理
+	                if(data.code == 200){
+	                	//location.href = data.data;
+	                	history.back();
+	                }else{
+	                	layer.msg(data.data);
+	                }
+	            }
+	        });
+	       	// 阻止表单自动提交事件
+	        return false; 
+	    });
+	</script>
+{/block}

@@ -1,0 +1,143 @@
+{extend name="public:base" /}
+{block name="page-content"}
+	<div class="row" style="margin: 0 auto">
+		<div class="col-xs-12">
+			<div class="widget-box transparent">
+				<div class="widget-header widget-header-flat">
+					<h4 class="widget-title lighter">
+						<i class="ace-icon fa fa-star orange"></i>
+						添加财务信息 Add Money
+					</h4>
+					<div class="widget-toolbar">
+						<a href="#" data-action="collapse">
+							<i class="ace-icon fa fa-chevron-up"></i>
+						</a>
+					</div>
+					<h4 class="widget-title lighter pull-right" style="margin-right:20px;">
+						<a href="javascript:history.back()" onClink>
+							<i class="ace-icon glyphicon glyphicon-list"></i>
+							返回财务信息列表
+						</a>
+					</h4>
+				</div>
+				<div class="widget-body">
+					<div class="widget-main">
+						<form class="form-horizontal" id="sample-form" action="" method="post" enctype="multipart/form-data">
+							<div class="form-group">
+								<label for="username" class="col-xs-12 col-sm-2 control-label no-padding-right">姓名：</label>
+								<div class="col-xs-12 col-sm-5">
+									<span class="block input-icon input-icon-right">
+										<input type="text" id="username" name="username" class="width-100" placeholder="请输入姓名" />
+										<i class="ace-icon fa fa-leaf green"></i>
+									</span>
+								</div>
+								<div class="help-block col-xs-12 col-sm-3 h"> 
+									Warning tip help! 
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="money" class="col-xs-12 col-sm-2 control-label no-padding-right">金额：</label>
+								<div class="col-xs-12 col-sm-5">
+									<span class="block input-icon input-icon-right">
+										<input type="text" id="money" name="money" class="width-100" placeholder="请输入金额" value="0" />
+										<i class="ace-icon fa fa-leaf green"></i>
+									</span>
+								</div>
+								<div class="help-block col-xs-12 col-sm-3 h"> 
+									Warning tip help! 
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="explain" class="col-xs-12 col-sm-2 control-label no-padding-right">说明：</label>
+								<div class="col-xs-12 col-sm-5">
+									<span class="block input-icon input-icon-right">
+										<input type="text" id="explain" name="explain" class="width-100" placeholder="请输入说明" />
+										<i class="ace-icon fa fa-leaf green"></i>
+									</span>
+								</div>
+								<div class="help-block col-xs-12 col-sm-3 h"> 
+									Warning tip help! 
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="type" class="col-xs-12 col-sm-2 control-label no-padding-right">类型：</label>
+								<div class="col-xs-12 col-sm-5">
+									<select class="form-control" id="type" name="type">
+			                        	<option value="0">收入</option>
+			                         	<option value="1">支出</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="use_time" class="col-xs-12 col-sm-2 control-label no-padding-right">事件时间：</label>
+								<div class="col-xs-12 col-sm-5">
+									<span class="block input-icon input-icon-right">
+										<input type="text" id="use_time" name="use_time" class="width-100" value=""
+										placeholder="事件时间" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" />
+										<i class="ace-icon glyphicon glyphicon-time green"></i>
+									</span>
+								</div>
+								<div class="help-block col-xs-12 col-sm-3 h"> 
+									Warning tip help! 
+								</div>
+							</div>
+							<!-- submit -->
+							<div class="col-xs-12 col-sm-1 col-sm-offset-2 no-padding-left">
+								<button class="btn btn-info submit" type="submit">
+									<i class="ace-icon fa fa-check bigger-110"></i>
+									Submit
+								</button>
+							</div>
+							<div class="col-xs-12 col-sm-1 col-sm-offset-2">
+								<button class="btn" type="reset">
+									<i class="ace-icon fa fa-undo bigger-110"></i>
+									Reset
+								</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div><!-- /.col -->
+	</div><!-- /.row -->
+{/block}
+{block name="script"}
+	<script>
+		$('#sample-form').on('submit', function() {
+        	var username = $('#username').val(),money = $('#money').val();
+        	if(!username){
+        		layer.tips('姓名不能为空！', '#username');
+        		$('#username').focus();
+        		return false;
+        	}
+        	if(!money){
+        		layer.tips('金额不能为空！', '#money');
+        		$('#money').focus();
+        		return false;
+        	}
+        	//return false;
+	        $(this).ajaxSubmit({
+	            type: 'post', // 提交方式 get/post
+	            url: '', // 需要提交的 url
+	            data: {
+	                //'username': username,
+	                //'password': password,
+	                //'verify_code': verify_code
+	            },
+	            success: function(data) { 
+	            	// data 保存提交后返回的数据，一般为 json 数据
+	                // 此处可对 data 作相关处理
+	                if(data.code == 200){
+	                	//location.href = data.data;
+	                	history.back();
+	                }else{
+	                	layer.msg(data.data);
+	                }
+	            }
+	        });
+	       	// 阻止表单自动提交事件
+	        return false; 
+	    });
+	</script>
+	<script src="__STATIC__/public/js/My97DatePicker/WdatePicker.js"></script>
+{/block}

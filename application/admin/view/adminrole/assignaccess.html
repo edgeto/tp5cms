@@ -1,0 +1,153 @@
+{extend name="public:base" /}
+{block name="page-content"}
+	<div class="row" style="margin: 0 auto">
+		<div class="col-xs-12">
+			<div class="widget-box transparent">
+				<div class="widget-header widget-header-flat">
+					<h4 class="widget-title lighter">
+						<i class="ace-icon fa fa-star orange"></i>
+						权限分配 Permission assignment
+					</h4>
+					<div class="widget-toolbar">
+						<a href="#" data-action="collapse">
+							<i class="ace-icon fa fa-chevron-up"></i>
+						</a>
+					</div>
+					<h4 class="widget-title lighter pull-right" style="margin-right:20px;">
+						<a href="javascript:history.back()" onClink>
+							<i class="ace-icon glyphicon glyphicon-list"></i>
+							返回角色列表
+						</a>
+					</h4>
+				</div>
+				<div class="widget-body">
+                <h5>您正在为角色：<b>{$adminRole['name']}</b> 分配权限，项目和模块有全选和取消全选功能</h5>
+                <div class="widget-main no-padding">
+                    <form id="sample-form">
+                    	<input type="hidden" name="id" value="{$adminRole['id']}"/>
+                    	{volist name="reourceList" id="vo"}
+                    		<input type="hidden" name="resource_id[]" value="{$vo['id']}"/>
+                            <table class="table table-bordered table-striped table-hover text-center">
+                            	<thead>
+									<tr>
+										<th class="left">
+											<input type="checkbox" class="ace" level="all" obj="node_{$vo['id']}_" />
+                                            <span class="lbl green"> {$vo['name']} </span>
+											<label class="pull-right open-it" data-toggle="collapse" href="#collapse_node_{$vo['id']}">
+												<a>
+													<i class="ace-icon fa fa-caret-right blue"></i>
+													展开
+												</a>
+											</label>
+										</th>
+									</tr>
+								</thead>
+                                <tbody id="collapse_node_{$vo['id']}" class="collapse">
+									<tr>
+                                        <td>
+                                            <div class="control-group">
+                                            	{volist name="vo.son" id="vvo"}
+                                                    <div class="checkbox col-xs-12 col-sm-3 text-left no-margin-top">
+                                                        <label>
+                                                            <input name="resource_id[]" type="checkbox" class="ace" value="{$vvo['id']}" obj="node_{$vo['id']}_{$vvo['id']}" />
+                                                            <span class="lbl"> {$vvo['name']} </span>
+                                                        </label>
+                                                    </div>
+                                                {/volist}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                    	{/volist}
+                    </form>
+                    <!-- submit -->
+                    <div class="col-xs-12 col-sm-1  no-padding-left" style="margin-top:20px;">
+                        <button class="btn btn-primary submit">
+                            <i class="ace-icon fa fa-check bigger-110"></i>
+                            提交
+                        </button>
+                    </div>
+                    <div class="col-xs-12 col-sm-1 col-sm-offset-1" style="margin-top:20px;">
+                        <button class="btn btn-info reset">
+                            <i class="ace-icon glyphicon glyphicon-refresh"></i>
+                            恢复
+                        </button>
+                    </div>
+                    <div class="col-xs-12 col-sm-1 col-sm-offset-1" style="margin-top:20px;">
+                        <button class="btn btn-danger empty">
+                            <i class="ace-icon fa fa-undo bigger-110"></i>
+                            清空
+                        </button>
+                    </div>
+                </div><!-- /.widget-main -->
+            </div><!-- /.widget-body -->
+			</div>
+		</div><!-- /.col -->
+	</div><!-- /.row -->
+{/block}
+{block name="script"}
+	<script>
+		// 打开面板
+		$(".open-it").click();
+		//初始化数据
+	    function setAccess(){
+	        //清空所有已选中的
+	        $("input[type='checkbox']").prop("checked",false);
+	        var access=$.parseJSON('{$adminRole['rules']}');
+	        var access_length = access.length;
+	        if(access_length>0){
+	            for(var i=0;i<access_length;i++){
+	                $("input[type='checkbox'][value='" + access[i] + "']").prop("checked","checked");
+	            }
+	        }
+	    }  
+	    $(function(){
+	        //执行初始化数据操作
+	        setAccess();
+	        //全选
+	        $("input[level='all']").click(function(){
+	            var obj=$(this).attr("obj");
+	            $("input[obj^='"+obj+"']").prop("checked",$(this).prop("checked"));
+	        });
+	        //重置初始状态，勾选错误时恢复
+	        $(".reset").click(function(){
+	            setAccess();
+	        });
+	        //清空当前已经选中的
+	        $(".empty").click(function(){
+	            $("input[type='checkbox']").prop("checked",false);
+	        });
+	        //提交
+	        $(".submit").click(function(){
+	            $('#sample-form').submit();
+	        });
+	    });
+		$('#sample-form').on('submit', function() {
+	    	//return false;
+	        $(this).ajaxSubmit({
+	            type: 'post', // 提交方式 get/post
+	            url: '', // 需要提交的 url
+	            data: {
+	                //'username': username,
+	                //'password': password,
+	                //'verify_code': verify_code
+	            },
+	            success: function(data) { 
+	            	// data 保存提交后返回的数据，一般为 json 数据
+	                // 此处可对 data 作相关处理
+	                if(data.code == 200){
+	                	layer.msg('分配权限成功！', {icon: 1});
+	                	setTimeout(function(){
+	                            top.window.location.reload();
+	                        },1000);
+	                }else{
+	                	layer.msg('分配权限失败！', {icon: 2});
+	                }
+	            }
+	        });
+	       	// 阻止表单自动提交事件
+	        return false; 
+	    });
+	</script>
+{/block}

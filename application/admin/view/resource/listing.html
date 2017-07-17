@@ -1,0 +1,131 @@
+{extend name="public:base" /}
+{block name="page-content"}
+	<div class="row" style="margin: 0 auto">
+		<div class="col-sm-12">
+			<div class="widget-box transparent">
+				<div class="widget-header widget-header-flat">
+					<h4 class="widget-title lighter">
+						<i class="ace-icon fa fa-star orange"></i>
+						{$channel_name} >> 资源列表 Resource List
+					</h4>
+					<div class="widget-toolbar pull-right">
+						<a href="#" data-action="collapse">
+							<i class="ace-icon fa fa-chevron-up"></i>
+						</a>
+					</div>
+					<h4 class="widget-title lighter pull-right" style="margin-right:20px;">
+						<a href="/resource/add/channel_id/{$channel_id}">
+							<i class="ace-icon glyphicon glyphicon-plus"></i>
+							添加资源
+						</a>
+					</h4>
+					<h4 class="widget-title lighter pull-right" style="margin-right:20px;">
+						<a href="javascript:history.back()">
+							<i class="ace-icon glyphicon glyphicon-list"></i>
+							返回资源频道列表
+						</a>
+					</h4>
+				</div>
+				<div class="widget-body">
+					<div class="widget-header widget-header-flat text-right">
+						<h4 class="widget-title lighter count-list">
+							系统现有资源<b>{$count}</b>个
+						</h4>
+					</div>
+					<div class="widget-main no-padding">
+						<table class="table table-bordered table-striped table-hover text-center">
+							<thead class="thin-border-bottom text-center">
+								<tr>
+									<th class="text-center">
+										<label class="pos-rel">
+											<input type="checkbox" class="ace" />
+											<span class="lbl"></span>
+										</label>
+									</th>
+									<th class="text-center">
+										<i class="ace-icon fa fa-caret-right blue"></i>ID
+									</th>
+									<th class="text-center">
+										<i class="ace-icon fa fa-caret-right blue"></i>名称
+									</th>
+									<th class="text-center">
+										<i class="ace-icon fa fa-caret-right blue"></i>导航名称
+									</th>
+									<th class="text-center">
+										<i class="ace-icon fa fa-caret-right blue"></i>显示
+									</th>
+									<th class="text-center">
+										<i class="ace-icon fa fa-caret-right blue"></i>显示排序
+									</th>
+									<th class="text-center">
+										<i class="ace-icon fa fa-caret-right blue"></i>控制器
+									</th>
+									<th class="text-center">
+										<i class="ace-icon fa fa-caret-right blue"></i>操作
+									</th>
+									<th class="text-center">
+										<i class="ace-icon fa fa-caret-right blue"></i>路由
+									</th>
+									<th class="text-center">
+										<i class="ace-icon fa fa-caret-right blue"></i>添加时间
+									</th>
+									<th class="text-center">
+										<i class="ace-icon fa fa-caret-right blue"></i>修改时间
+									</th>
+									<th class="text-center">
+										<i class="ace-icon fa fa-caret-right blue"></i>操作
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								{volist name="list" id="vo"}
+									<tr>
+										<td>
+											<label class="pos-rel">
+												<input type="checkbox" class="ace" />
+												<span class="lbl"></span>
+											</label>
+										</td>
+										<td>{$vo.id}</td>
+										<td>
+											{$vo.name}
+										</td>
+										<td>{$vo.nav_name}</td>
+						                <td>
+						                	{if condition="$vo['show_nav'] eq 0 "}
+						                        不显示
+						                    {else /}
+						                        显示
+						                    {/if}
+						                </td>
+						                <td>{$vo.show_order}</td>
+						                <td>{$vo.controller}</td>
+						                <td>{$vo.action}</td>
+						                <td>{$vo.route}</td>
+						                <td>
+						                    {$vo.add_time}
+						                </td>
+						                <td>
+						                    {$vo.update_time}
+						                </td>
+										<td>
+											<div class="hidden-sm hidden-xs action-buttons">
+												<a class="green" href="/resource/edit/id/{$vo.id}">
+													<i class="ace-icon fa fa-pencil bigger-130"></i>
+												</a>
+												<a class="red bootbox-confirm" href="javascript:;" value="/resource/delete/id/{$vo.id}">
+													<i class="ace-icon fa fa-trash-o bigger-130"></i>
+												</a>
+											</div>
+										</td>
+									</tr>
+							    {/volist}
+							</tbody>
+						</table>
+						{$page}
+					</div><!-- /.widget-main -->
+				</div><!-- /.widget-body -->
+			</div><!-- /.widget-box -->
+		</div><!-- /.col -->
+	</div><!-- /.row -->
+{/block}

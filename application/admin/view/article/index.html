@@ -1,0 +1,105 @@
+{extend name="public:base" /}
+{block name="page-content"}
+	<div class="row" style="margin: 0 auto">
+		<div class="col-sm-12">
+			<div class="widget-box transparent">
+				<div class="widget-header widget-header-flat">
+					<h4 class="widget-title lighter">
+						<i class="ace-icon fa fa-star orange"></i>
+						文章列表 Article List
+					</h4>
+					<div class="widget-toolbar pull-right">
+						<a href="#" data-action="collapse">
+							<i class="ace-icon fa fa-chevron-up"></i>
+						</a>
+					</div>
+				</div>
+				<div class="widget-body">
+					<div class="widget-header widget-header-flat text-right">
+						<h4 class="widget-title lighter count-list">
+							系统现有文章<b>{$count}</b>个
+						</h4>
+					</div>
+					<div class="widget-main no-padding">
+						<table class="table table-bordered table-striped table-hover text-center">
+							<thead class="thin-border-bottom text-center">
+								<tr>
+									<th class="text-center">
+										<label class="pos-rel">
+											<input type="checkbox" class="ace" />
+											<span class="lbl"></span>
+										</label>
+									</th>
+									<th class="text-center">
+										<i class="ace-icon fa fa-caret-right blue"></i>ID
+									</th>
+									<th class="text-center">
+										<i class="ace-icon fa fa-caret-right blue"></i>标题
+									</th>
+									<th class="text-center">
+										<i class="ace-icon fa fa-caret-right blue"></i>分类
+									</th>
+									<th class="text-center">
+										<i class="ace-icon fa fa-caret-right blue"></i>状态
+									</th>
+									<th class="text-center">
+										<i class="ace-icon fa fa-caret-right blue"></i>查看次数
+									</th>
+									<th class="text-center">
+										<i class="ace-icon fa fa-caret-right blue"></i>添加时间
+									</th>
+									<th class="text-center">
+										<i class="ace-icon fa fa-caret-right blue"></i>修改时间
+									</th>
+									<th class="text-center">
+										<i class="ace-icon fa fa-caret-right blue"></i>操作
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								{volist name="list" id="vo"}
+									<tr>
+										<td>
+											<label class="pos-rel">
+												<input type="checkbox" class="ace" />
+												<span class="lbl"></span>
+											</label>
+										</td>
+										<td>{$vo.id}</td>
+										<td>
+											{$vo.title}
+										</td>
+										<td>
+											{$article_category_list[$vo['article_category_id']]['name']}
+										</td>
+						                <td>
+						                	{if condition="$vo['status'] eq 0 "}
+									            启用
+									        {else /}
+									            禁用
+									        {/if}
+						                </td>
+						                <td>{$vo.view}</td>
+						                <td>{$vo.add_time}</td>
+						                <td>{$vo.update_time}</td>
+										<td>
+											<div class="hidden-sm hidden-xs action-buttons">
+												<a class="green" href="/article/edit/id/{$vo.id}">
+													<i class="ace-icon fa fa-pencil bigger-130"></i>
+												</a>
+												<a class="red bootbox-confirm" href="javascript:;" value="/article/delete/id/{$vo.id}">
+													<i class="ace-icon fa fa-trash-o bigger-130"></i>
+												</a>
+											</div>
+										</td>
+									</tr>
+							    {/volist}
+							</tbody>
+						</table>
+						{$page}
+					</div><!-- /.widget-main -->
+				</div><!-- /.widget-body -->
+			</div><!-- /.widget-box -->
+		</div><!-- /.col -->
+	</div><!-- /.row -->
+{/block}

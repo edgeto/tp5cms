@@ -1,0 +1,59 @@
+<div id="sidebar" class="sidebar responsive">
+    <script type="text/javascript">
+        try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
+    </script>
+    <ul class="nav nav-list">
+        {volist name="leftMenu" id="item"}
+            {notempty name="item.son"}
+                {if condition="count($item['son']) == 1 "}
+                    {assign name="son" value="$item['son'][0]" /}
+                        <li class="{if condition="$son['current'] == 1 "}active open {/if}">
+                            <a href="{$son.route}">
+                                {notempty name="son.nav_icon"}
+                                    <i class="menu-icon {$son['nav_icon']}"></i>
+                                {else /}
+                                    <i class="menu-icon fa fa-desktop"></i>
+                                {/notempty}
+                                <span class="menu-text"> {$son['nav_name']} </span>
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
+                {else /}
+                    <li class="{if condition="$item['current'] == 1 "}active open {/if}">
+                        <a href="{$item.route}" {notempty name="item.son"}class="dropdown-toggle"{/notempty}>
+                            {notempty name="item.nav_icon"}
+                                <i class="menu-icon {$item['nav_icon']}"></i>
+                            {else /}
+                                <i class="menu-icon fa fa-desktop"></i>
+                            {/notempty}
+                            <span class="menu-text"> {$item['nav_name']} </span>
+                            {notempty name="item.son"}
+                                <b class="arrow fa fa-angle-down"></b>
+                            {/notempty}
+                        </a>
+                        <b class="arrow"></b>
+                        {notempty name="item.son"}
+                            <ul class="submenu">
+                                {volist name="item.son" id="vo"}
+                                    <li class="{if condition="$vo['current'] == 1 "}active{/if}">
+                                        <a href="{$vo['route']}">
+                                            <i class="menu-icon fa fa-caret-right"></i>
+                                            <span class="menu-text"> {$vo['nav_name']} </span>
+                                        </a>
+                                        <b class="arrow"></b>
+                                    </li>
+                                {/volist}
+                            </ul>
+                        {/notempty}
+                    </li>
+                {/if}
+            {/notempty}
+        {/volist}
+    </ul><!-- /.nav-list -->
+    <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+        <i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+    </div>
+    <script type="text/javascript">
+        try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+    </script>
+</div>

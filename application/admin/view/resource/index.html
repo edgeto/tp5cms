@@ -1,0 +1,138 @@
+{extend name="public:base" /}
+{block name="page-content"}
+	<div class="row" style="margin: 0 auto">
+		<div class="col-sm-12">
+			<div class="alert alert-block alert-success h">
+				<button type="button" class="close" data-dismiss="alert">
+					<i class="ace-icon fa fa-times"></i>
+				</button>
+				<p>
+					<strong>
+						<i class="ace-icon fa fa-check"></i>
+						Well done！
+					</strong>
+					You successfully delete！
+				</p>
+			</div><!-- /.alert-success -->
+			<div class="alert alert-warning h">
+				<button type="button" class="close" data-dismiss="alert">
+					<i class="ace-icon fa fa-times"></i>
+				</button>
+				<strong>Sorry！</strong>
+				<span class="alert-warning-msg">Delete failed！</span>
+				<br>
+			</div>
+			<div class="widget-box transparent">
+				<div class="widget-header widget-header-flat">
+					<h4 class="widget-title lighter">
+						<i class="ace-icon fa fa-star orange"></i>
+						资源频道列表 Resource Channel List
+					</h4>
+					<div class="widget-toolbar">
+						<a href="#" data-action="collapse">
+							<i class="ace-icon fa fa-chevron-up"></i>
+						</a>
+					</div>
+					<h4 class="widget-title lighter pull-right" style="margin-right:20px;">
+						<a href="/resource/addChannel">
+							<i class="ace-icon glyphicon glyphicon-plus"></i>
+							添加资源频道
+						</a>
+					</h4>
+				</div>
+				<div class="widget-body">
+					<div class="widget-header widget-header-flat text-right">
+						<h4 class="widget-title lighter count-list">
+							系统现有资源频道<b>{$count}</b>个
+						</h4>
+					</div>
+					<div class="widget-main no-padding">
+						<table class="table table-bordered table-striped table-hover text-center">
+							<thead class="thin-border-bottom text-center">
+								<tr>
+									<th class="text-center">
+										<label class="pos-rel">
+											<input type="checkbox" class="ace" />
+											<span class="lbl"></span>
+										</label>
+									</th>
+									<th class="text-center">
+										<i class="ace-icon fa fa-caret-right blue"></i>ID
+									</th>
+									<th class="text-center">
+										<i class="ace-icon fa fa-caret-right blue"></i>名称
+									</th>
+									<th class="text-center">
+										<i class="ace-icon fa fa-caret-right blue"></i>导航名称
+									</th>
+									<th class="text-center">
+										<i class="ace-icon fa fa-caret-right blue"></i>显示
+									</th>
+									<th class="text-center">
+										<i class="ace-icon fa fa-caret-right blue"></i>显示排序
+									</th>
+									<th class="text-center">
+										<i class="ace-icon fa fa-caret-right blue"></i>添加时间
+									</th>
+									<th class="text-center">
+										<i class="ace-icon fa fa-caret-right blue"></i>修改时间
+									</th>
+									<th class="text-center">
+										<i class="ace-icon fa fa-caret-right blue"></i>操作
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								{volist name="list" id="vo"}
+									<tr>
+										<td>
+											<label class="pos-rel">
+												<input type="checkbox" class="ace" />
+												<span class="lbl"></span>
+											</label>
+										</td>
+										<td>{$vo['id']}</td>
+										<td>
+											{$vo['name']}
+										</td>
+										<td>{$vo['nav_name']}</td>
+						                <td>
+						                	{if condition="$vo['show_nav'] eq 0 "}
+						                        不显示
+						                    {else /}
+						                        显示
+						                    {/if}
+						                </td>
+						                <td>{$vo['show_order']}</td>
+						                <td>
+						                    {$vo['add_time']}
+						                </td>
+						                <td>
+						                	{$vo['update_time']}
+						                </td>
+										<td>
+											<div class="hidden-sm hidden-xs action-buttons">
+												<a class="green" href="/resource/listing/channel_id/{$vo['id']}">
+													<i class="ace-icon glyphicon glyphicon-list bigger-130"></i>
+												</a>
+												<a class="green" href="/resource/add/channel_id/{$vo['id']}">
+													<i class="ace-icon glyphicon glyphicon-plus bigger-130"></i>
+												</a>
+												<a class="green" href="/resource/editChannel/id/{$vo['id']}">
+													<i class="ace-icon fa fa-pencil bigger-130"></i>
+												</a>
+												<a class="red bootbox-confirm" href="javascript:;" value="/resource/delete/id/{$vo['id']}">
+													<i class="ace-icon fa fa-trash-o bigger-130"></i>
+												</a>
+											</div>
+										</td>
+									</tr>
+							    {/volist}
+							</tbody>
+						</table>
+					</div><!-- /.widget-main -->
+				</div><!-- /.widget-body -->
+			</div><!-- /.widget-box -->
+		</div><!-- /.col -->
+	</div><!-- /.row -->
+{/block}

@@ -1,0 +1,144 @@
+{extend name="public:base" /}
+{block name="page-content"}
+	<div class="row" style="margin: 0 auto">
+		<div class="col-sm-12">
+			<div class="widget-box transparent">
+				<div class="widget-header widget-header-flat">
+					<h4 class="widget-title lighter">
+						<i class="ace-icon fa fa-star orange"></i>
+						管理员列表 Admin List
+					</h4>
+					<div class="widget-toolbar pull-right">
+						<a href="#" data-action="collapse">
+							<i class="ace-icon fa fa-chevron-up"></i>
+						</a>
+					</div>
+					<h4 class="widget-title lighter pull-right" style="margin-right:20px;">
+						<a href="/admin/add">
+							<i class="ace-icon glyphicon glyphicon-plus"></i>
+							添加管理员
+						</a>
+					</h4>
+				</div>
+				<div class="widget-body">
+					<div class="widget-header widget-header-flat text-right">
+						<h4 class="widget-title lighter count-list">
+							系统现有管理员<b>{$count}</b>个
+						</h4>
+					</div>
+					<div class="widget-main no-padding">
+						<table class="table table-bordered table-striped table-hover text-center">
+							<thead class="thin-border-bottom text-center">
+								<tr>
+									<th class="text-center">
+										<label class="pos-rel">
+											<input type="checkbox" class="ace" />
+											<span class="lbl"></span>
+										</label>
+									</th>
+									<th class="text-center">
+										<i class="ace-icon fa fa-caret-right blue"></i>ID
+									</th>
+									<th class="text-center">
+										<i class="ace-icon fa fa-caret-right blue"></i>名称
+									</th>
+									<th class="text-center">
+										<i class="ace-icon fa fa-caret-right blue"></i>角色
+									</th>
+									<th class="text-center">
+										<i class="ace-icon fa fa-caret-right blue"></i>状态
+									</th>
+									<th class="text-center">
+										<i class="ace-icon fa fa-caret-right blue"></i>添加时间
+									</th>
+									<th class="text-center">
+										<i class="ace-icon fa fa-caret-right blue"></i>修改时间
+									</th>
+									<th class="text-center">
+										<i class="ace-icon fa fa-caret-right blue"></i>最后登陆时间
+									</th>
+									<th class="text-center">
+										<i class="ace-icon fa fa-caret-right blue"></i>最后登陆IP
+									</th>
+									<th class="text-center">
+										<i class="ace-icon fa fa-caret-right blue"></i>操作
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								{volist name="list" id="vo"}
+									<tr>
+										<td>
+											<label class="pos-rel">
+												<input type="checkbox" class="ace" />
+												<span class="lbl"></span>
+											</label>
+										</td>
+										<td>{$vo.id}</td>
+										<td>
+											{$vo.username}
+										</td>
+										<td>
+											{notempty name="roleList[$vo['role_id']]['name']"}
+												{$roleList[$vo['role_id']]['name']}
+											{/notempty}				
+										</td>
+						                <td>
+						                	{if condition="$vo['status'] eq 0 "}
+									            启用
+									        {else /}
+									            启用
+									        {/if}
+						                </td>
+						                <td>{$vo.add_time}</td>
+						                <td>{$vo.update_time}</td>
+						                <td>{$vo.last_login_time}</td>
+						                <td>{$vo.last_login_ip}</td>
+										<td>
+											<div class="hidden-sm hidden-xs action-buttons">
+												{notempty name="roleList[$vo['role_id']]"}
+													{if condition="$roleList[$vo['role_id']]['is_super'] eq 0 "}
+														<a class="green" href="/admin/edit/id/{$vo.id}">
+															<i class="ace-icon fa fa-pencil bigger-130"></i>
+														</a>
+														<a class="green" href="/admin/password/id/{$vo.id}">
+															<i class="glyphicon glyphicon-edit"></i>
+															修改密码
+														</a>
+														<a class="red bootbox-confirm" href="javascript:;" value="/admin/delete/id/{$vo.id}">
+															<i class="ace-icon fa fa-trash-o bigger-130"></i>
+														</a>
+														<a class="green" href="/admin/log/id/{$vo.id}">
+															<i class="glyphicon glyphicon-list-alt"></i>
+															登陆日志
+														</a>
+													{/if}
+												{else /}
+													<a class="green" href="/admin/edit/id/{$vo.id}">
+														<i class="ace-icon fa fa-pencil bigger-130"></i>
+													</a>
+													<a class="green" href="/admin/password//{$vo.id}">
+														<i class="glyphicon glyphicon-edit"></i>
+														修改密码
+													</a>
+													<a class="red bootbox-confirm" href="javascript:;" value="/admin/delete/id/{$vo.id}">
+														<i class="ace-icon fa fa-trash-o bigger-130"></i>
+													</a>
+													<a class="green" href="/admin/log/id/{$vo.id}">
+														<i class="glyphicon glyphicon-list-alt"></i>
+														登陆日志
+													</a>
+												{/notempty}
+											</div>
+										</td>
+									</tr>
+							    {/volist}
+							</tbody>
+						</table>
+						{$page}
+					</div><!-- /.widget-main -->
+				</div><!-- /.widget-body -->
+			</div><!-- /.widget-box -->
+		</div><!-- /.col -->
+	</div><!-- /.row -->
+{/block}

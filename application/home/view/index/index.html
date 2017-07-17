@@ -1,0 +1,99 @@
+{extend name="public:base" /}
+<!-- 主体 -->  
+{block name="main"}
+    <!-- 轮播图 -->
+    <div class="container-fluid">
+        <div class="row">
+            <div id="slideBox" class="slideBox">
+                <div class="bd">
+                    <ul>
+                        <li style="">
+                            <a href="http://mall.yangsoon.cn/" target="_blank">
+                                <img src="__STATIC__/home/img/bcbc.jpg">
+                            </a>
+                        </li>
+                        <li style="">
+                            <a href="http://mall.yangsoon.cn/mobile" target="_blank">
+                                <img src="__STATIC__/home/img/minishop.jpg">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- 下面是前/后按钮代码，如果不需要删除即可 -->
+                <a class="prev" href="javascript:void(0)"></a>
+                <a class="next" href="javascript:void(0)"></a>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row cases">
+            <div class="list">
+                <ul class="">
+                    <li>
+                        <a href="http://mall.yangsoon.cn/" target="_blank">
+                            <img src="http://tp-shop.cn/Template/pc/new/Static/images/bcbc6.jpg" alt="B2C商城">
+                            <p>B2C商城</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://mall.yangsoon.cn/mobile" target="_blank">
+                            <img src="__STATIC__/home/img/mobile.png" alt="B2C商城手机站">
+                            <p>B2C商城手机站</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://ycvcard.com/" target="_blank">
+                            <img src="__STATIC__/home/img/v.png" alt="雨橙V卡">
+                            <p>雨橙V卡</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.coralwv.com/" target="_blank">
+                            <img src="__STATIC__/home/img/demo1.jpg" alt="遇见宠物">
+                            <p>遇见宠物</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.itssoft.net/" target="_blank">
+                            <img src="__STATIC__/home/img/demo2.jpg" alt="深圳埃提思科技开发有限公司">
+                            <p>深圳埃提思科技开发有限公司</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.pengshengfangzhi.net/" target="_blank">
+                            <img src="__STATIC__/home/img/demo3.jpg" alt="东莞市鹏盛纺织品贸易行">
+                            <p>东莞市鹏盛纺织品贸易行</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.shunyangjt.com/" target="_blank">
+                            <img src="__STATIC__/home/img/demo4.jpg" alt="江苏顺洋集团">
+                            <p>江苏顺洋集团</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.tkkjxny.com/" target="_blank">
+                            <img src="__STATIC__/home/img/demo5.jpg" alt="浙江天堃新能源科技有限公司">
+                            <p>浙江天堃新能源科技有限公司</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{/block} 
+<!-- script -->
+{block name="script"}
+    <script>
+        $(".slideBox").slide({mainCell:".bd ul",autoPlay:true,effect:'left'});
+    </script>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?08a0387d73127a95abc0c43e3126a62e";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+{/block}
