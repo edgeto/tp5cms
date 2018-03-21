@@ -1,13 +1,13 @@
-## ���
-* ����thinkphp5+php7��ͳһ��̨����ϵͳ������ֲ㣨serviceҵ��㣬data���ݴ����㣬model���ݿ����Ӳ㣩��
-## ģ��
-* Ȩ�޹��� 
-* �˵���������Ȩ�޹ҹ��� 
-* ����Ա���� 
-* ϵͳ���� 
-* �������� 
-* �������� 
-* ������
-## ����
-* ��ַ��http://cmsadmin.580vps.com/
-* �����ʺ�/���룺test/test
+## 简介
+* 基于thinkphp5+php7的统一后台管理系统，代码分层（service业务层，data数据处理层，model数据库连接层）。
+## 模块
+* 权限管理 
+* 菜单管理（与权限挂钩） 
+* 管理员管理 
+* 系统设置 
+* 友情链接 
+* 导航管理 
+* 广告管理
+## 测试
+* 网址：http://cmsadmin.yangsoon.cn/
+* 测试帐号/密码：test/test
